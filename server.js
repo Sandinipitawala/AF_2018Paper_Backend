@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyparser.json());
 
 //environmental variables
-const PORT = process.env.PORT || 8092;
+const PORT = process.env.PORT || 8099;
 const MONGODB_URI = process.env.MONGODB_URI;
 
 //creating the mongodb connection
