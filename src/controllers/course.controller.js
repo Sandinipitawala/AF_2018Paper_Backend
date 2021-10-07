@@ -55,9 +55,32 @@ const calculateAmount = async (req, res) => {
     }
   }
 
+  //Delete a specific Course
+  const deleteCourse = async(req, res) => {
+    const id = req.params.id;
+    Course.findByIdAndRemove(id, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Course was not found! Unsuccessful deletion of Course with id=${id}.`
+          });
+        } else {
+          res.send({
+            message: "Successfully deleted the Course!"
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Sorry! Cannot delete the Course with id=" + id
+        });
+      });
+  };
+
 module.exports = {
     createCourse,
     getAllCourses,
     getSubjectsForCourse,
-    calculateAmount
+    calculateAmount,
+    deleteCourse
 };
