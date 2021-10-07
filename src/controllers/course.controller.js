@@ -1,5 +1,6 @@
 const Course = require('../models/course.model');
 
+//Creating the course
 const createCourse = async (req, res) => {
     if( req.body){
         const course =new Course(req.body);
@@ -13,6 +14,7 @@ const createCourse = async (req, res) => {
     }
 }
 
+//Get all courses by its name,description and amount
 const getAllCourses = async( req,res) => {
     await Course.find({}).populate('subjects', 'name description amount')
     .then(data => {
@@ -23,6 +25,7 @@ const getAllCourses = async( req,res) => {
     });
 }
 
+//Get subjects within its course
 const getSubjectsForCourse = async (req, res) => {
     if (req.params && req.params.id) {
       await Course.findById(req.params.id)
@@ -36,6 +39,7 @@ const getSubjectsForCourse = async (req, res) => {
     }
 }
 
+//Calculate the amount of selected course plus its subjects
 const calculateAmount = async (req, res) => {
     if (req.params && req.params.id) {
       const course = await Course.findById(req.params.id)
